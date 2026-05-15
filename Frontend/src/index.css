@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --bg-deep: #07111f;
+  --bg-mid: #10243f;
+  --panel: rgba(10, 21, 38, 0.78);
+  --panel-strong: rgba(8, 18, 33, 0.92);
+  --line: rgba(148, 163, 184, 0.16);
+  --text-main: #eff6ff;
+  --accent: #f59e0b;
+  --accent-strong: #f97316;
+  --accent-cool: #22d3ee;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(245, 158, 11, 0.28), transparent 24%),
+    radial-gradient(circle at 85% 10%, rgba(34, 211, 238, 0.2), transparent 26%),
+    radial-gradient(circle at 50% 100%, rgba(249, 115, 22, 0.14), transparent 30%),
+    linear-gradient(180deg, var(--bg-mid) 0%, var(--bg-deep) 56%, #030712 100%);
+  color: var(--text-main);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input,
+select,
+textarea {
+  color: var(--text-main);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(245, 158, 11, 0.28);
+  color: white;
+}
+
+.app-shell {
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.glass-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 0 24px 60px rgba(2, 8, 23, 0.35);
+  backdrop-filter: blur(16px);
+}
+
+.glass-panel-strong {
+  background: var(--panel-strong);
+  border: 1px solid rgba(251, 191, 36, 0.14);
+  box-shadow: 0 28px 80px rgba(2, 8, 23, 0.42);
+  backdrop-filter: blur(18px);
+}
+
+.warm-button {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-strong) 100%);
+  color: #111827;
+  box-shadow: 0 12px 28px rgba(249, 115, 22, 0.32);
+}
+
+.warm-button:hover {
+  filter: brightness(1.06);
+}
+
+.ghost-button {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.accent-ring {
+  position: relative;
+  overflow: hidden;
+}
+
+.accent-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.6), rgba(34, 211, 238, 0.35));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
