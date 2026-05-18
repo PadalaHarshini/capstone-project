@@ -11,6 +11,7 @@ function ArticleDetailsPage() {
   const [comments, setComments] = useState([]);
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   const fetchComments = async () => {
     const response = await api.get(`/comments/${id}`);
@@ -41,13 +42,23 @@ function ArticleDetailsPage() {
       return;
     }
 
+    const trimmedComment = comment.trim();
+
+    if (!trimmedComment) {
+      toast.error("Please enter a comment before submitting");
+      return;
+    }
+
     try {
-      await api.post("/comments", { articleId: id, comment });
+      setSubmitting(true);
+      await api.post("/comments", { articleId: id, comment: trimmedComment });
       setComment("");
       await fetchComments();
       toast.success("Comment added");
     } catch (error) {
       toast.error(error.response?.data?.message || "Failed to add comment");
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -88,14 +99,15 @@ function ArticleDetailsPage() {
             onChange={(event) => setComment(event.target.value)}
             rows="4"
             placeholder={user ? "Share your thoughts..." : "Login to leave a comment"}
+            disabled={!user || submitting}
             className="w-full rounded-2xl border border-white/10 bg-slate-950/80 px-4 py-3 outline-none transition focus:border-amber-400"
-            required
           />
           <button
             type="submit"
+            disabled={!user || submitting}
             className="warm-button rounded-full px-5 py-3 font-semibold transition"
           >
-            Add Comment
+            {submitting ? "Adding Comment..." : "Add Comment"}
           </button>
         </form>
 

@@ -94,6 +94,7 @@ textarea {
   content: "";
   position: absolute;
   inset: 0;
+  pointer-events: none;
   padding: 1px;
   border-radius: inherit;
   background: linear-gradient(135deg, rgba(245, 158, 11, 0.6), rgba(34, 211, 238, 0.35));

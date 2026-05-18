@@ -21,8 +21,9 @@ const getCommentsByArticle = async (req, res, next) => {
 const addComment = async (req, res, next) => {
   try {
     const { articleId, comment } = req.body;
+    const trimmedComment = typeof comment === "string" ? comment.trim() : "";
 
-    if (!articleId || !comment) {
+    if (!articleId || !trimmedComment) {
       return res.status(400).json({ message: "Article and comment are required" });
     }
 
@@ -34,7 +35,7 @@ const addComment = async (req, res, next) => {
     const newComment = await Comment.create({
       articleId,
       userId: req.user._id,
-      comment
+      comment: trimmedComment
     });
 
     const populatedComment = await newComment.populate("userId", "name role");
